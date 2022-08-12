@@ -1,19 +1,20 @@
 .app-add-form {
 	margin-top: 30px;
 	padding: 25px;
-	text-align: center;
 	background-color: #3d5a80;
 	border-radius: 4px;
 	box-shadow: 15px 15px 30px rgba(0,0,0, .15);
 	color: #fff;
 }
-.app-add-form span{
+.app-add-form p{
 	text-transform: uppercase;
 	font-size: 20px;
 	font-weight: 600;
+	text-align: center;
 }
 .add-form {
 	margin-top: 20px;
+	width: min-content;
 }
 
 .add-form input {

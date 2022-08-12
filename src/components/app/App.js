@@ -1,19 +1,25 @@
-import { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import Form from '../form/form';
 import HeaderProfile from '../header-profile/header-profile';
 import './App.css';
 
 function App(props) {
+	const [login, setLogin] = useState('ыау');
+	function onSubmit(login) {
+		setLogin(login);
+		//* Выводит данные правильно после отправки формы
+		console.log('Login after: ' + login);
+	}
 	return (
 		<Router>
 			<div className='app app-center'>
-				<Route exact path='/'>
-					<Form />
-				</Route>
-				<Route exact path='/profile'>
-					<HeaderProfile Login={props.login} />
-				</Route>
+				<Routes>
+					<Route path='/' element={<Form onSubmit={onSubmit} />} />
+					{login === 'admin' && (
+						<Route path='/profile' element={<HeaderProfile Login={login} />} />
+					)}
+				</Routes>
 			</div>
 		</Router>
 	);

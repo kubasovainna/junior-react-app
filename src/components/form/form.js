@@ -1,29 +1,34 @@
 import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import './form.css';
 
-const Form = (props) => {
+const Form = ({ onSubmit }) => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [formError, setFormError] = useState(false);
 
-	function onSubmit(e) {
+	// const navigate = useNavigate();
+
+	function onSubmitForm(e) {
 		e.preventDefault();
 		if (login === '' || login.length < 3 || password === '') {
 			setFormError(true);
-		} else {
+			setLogin('');
+			setPassword('');
+		} else if (login === 'admin' && password === 'admin') {
 			setFormError(false);
+			console.log('Login now: ' + login);
+
+			//! Возможно, ошибка на этом шаге
+			onSubmit(login);
+			// navigate('/profile');
 		}
-		let link = '';
-		if (formError === false) {
-			link = '/profile';
-		}
-		return link;
 	}
 
 	return (
 		<div className='app-add-form'>
-			<span>Авторизация</span>
-			<form onSubmit={onSubmit} className='add-form d-flex flex-column'>
+			<p>Авторизация</p>
+			<form onSubmit={onSubmitForm} className='add-form d-flex flex-column'>
 				<input
 					type='text'
 					className='form-control new-post-label'
@@ -45,9 +50,9 @@ const Form = (props) => {
 					Войти
 				</button>
 				{formError && (
-					<div class='alert alert-warning' role='alert'>
-						Проверьте правильность данных. Длина логина должна быть не менее 3-х
-						символов.
+					<div className='alert alert-warning mt-3' role='alert'>
+						Ошибка ввода или неверные данные. *Длина логина должна быть не менее
+						3-х символов.
 					</div>
 				)}
 			</form>
